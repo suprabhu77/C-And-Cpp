@@ -11,7 +11,7 @@ int fun(int n)
 //Here in the fun1 function each time execution takes place n value changes.
 int fun1(int n){
     if(n>0){
-        return fun1(n-1)+n;
+        return fun(n-1)+n;
     }
 }
 int main()

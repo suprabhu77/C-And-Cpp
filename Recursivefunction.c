@@ -30,6 +30,17 @@ int power(int m,int n)
     }
 
 }
+double e(int x, int n)
+{
+    static double p=1,f=1;
+    double r;
+    if(n==0)
+       return 1;
+    r=e(x,n-1);
+    p=p*x;
+    f=f*n;
+    return r+p/f;
+}
 
 int main()
 {
@@ -37,4 +48,5 @@ int main()
     printf("%d\n",sum(5));
     printf("%d\n",fact(5));
     printf("%d",power(2,5));
+    printf("%d",e(3,15));
 }
