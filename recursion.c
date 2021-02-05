@@ -8,8 +8,8 @@ int fun1(int n)
     }
 }
 int main()
-{  int x;
-    printf("Enter the Number");
-    scanf("%d",&x);
+{  int x = 4;
+    // printf("Enter the Number");
+    // scanf("%d",&x);
     fun1(x);
 }
