@@ -32,7 +32,7 @@ int main()
     for(int i=0;i<11;i++){
         if(A[i]==A[i+1]){
             j=i+1;
-            while (A[j]==A[i])
+            while (A[i]==A[j])
             {
                 j++;
             }
