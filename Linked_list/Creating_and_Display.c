@@ -35,20 +35,47 @@ void display(struct Node* p)
     }
 }
 
-void RDisplay(struct Node *p)
-{
- if(p!=NULL)
- {
- printf("%d ",p->data);
- RDisplay(p->next);
+// void RDisplay(struct Node *p)
+// {
+//  if(p!=NULL)
+//  {
+//  printf("%d ",p->data);
+//  RDisplay(p->next);
 
- }
-}
-int main()
+//  }
+// }
+int count(struct Node* p)
 {
-
-int A[]={1,2,3,4,5,8};
-Create(A,6);
-display(first);
-RDisplay(first);
+    int count =0;
+    while(p!=NULL)
+    {
+        p=p->next;
+        count++;
+    }
+    return count;
 }
+int Sum(struct Node*p)
+{
+    int sum = 0;
+    while(p!=NULL)
+    {
+        sum=sum+p->data;
+        p=p->next;
+    }
+    return sum;
+}
+
+    int main()
+    {
+    int count1;
+    int sum;
+    int A[]={1,2,3,4,5,8};
+    Create(A,6);
+    display(first);
+    // RDisplay(first);
+    printf("\n");
+    count1 = count(first);
+    printf("%d \n",count1);
+    sum = Sum(first);
+    printf("The sum is %d ",sum);
+    }
