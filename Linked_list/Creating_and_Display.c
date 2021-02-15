@@ -34,16 +34,6 @@ void display(struct Node* p)
         p=p->next ;
     }
 }
-
-// void RDisplay(struct Node *p)
-// {
-//  if(p!=NULL)
-//  {
-//  printf("%d ",p->data);
-//  RDisplay(p->next);
-
-//  }
-// }
 int count(struct Node* p)
 {
     int count =0;
@@ -65,14 +55,56 @@ int Sum(struct Node*p)
     return sum;
 }
 
+void duplicate(struct Node *p)
+{ 
+struct Node *q = p->next;
+while(q!=NULL)
+{
+    if(p->data!=q->data)
+    {
+        p=q;
+        q=q->next;
+    }
+    else
+    {
+        p->next = q->next;
+        free(q);
+        q = p->next;
+    }
+}
+}
+
+// void RemoveDuplicate(struct Node *p)
+// {
+//  struct Node *q=p->next;
+ 
+//  while(q!=NULL)
+//  {
+//  if(p->data!=q->data)
+//  {
+//  p=q;
+//  q=q->next;
+//  }
+//  else
+//  {
+//  p->next=q->next;
+//  free(q);
+//  q=p->next;
+//  }
+//  }
+
+// }
+
     int main()
     {
     int count1;
     int sum;
-    int A[]={1,2,3,4,5,8};
-    Create(A,6);
+    int A[]={1 ,2,2};
+    Create(A,3);
     display(first);
-    // RDisplay(first);
+    printf("\n");
+    duplicate(first);
+    display(first);
     printf("\n");
     count1 = count(first);
     printf("%d \n",count1);
