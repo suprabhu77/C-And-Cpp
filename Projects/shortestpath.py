@@ -1,6 +1,4 @@
 import queue
-
-
 def createMaze():
     maze = []
     maze.append(["#","#", "#", "#", "#", "O","#"])
