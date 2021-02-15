@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+
 struct Node
 {
     int data;
@@ -44,49 +45,50 @@ int count(struct Node* p)
     }
     return count;
 }
-int Sum(struct Node*p)
+
+void ReverseList(struct Node *p)
 {
-    int sum = 0;
+    struct Node *q=p;
+    int count1;
+    printf("\n%d \n",count1);
+    count1 = count(p);
+    printf("%d \n",count1);
+    int A[count1];
+    A[count1] = 0;
+    int i=0;
     while(p!=NULL)
     {
-        sum=sum+p->data;
+        A[i]=p->data;
         p=p->next;
+        i++;
     }
-    return sum;
-}
-
-void duplicate(struct Node *p)
-{ 
-struct Node *q = p->next;
-while(q!=NULL)
-{
-    if(p->data!=q->data)
+    while(q!=NULL)
     {
-        p=q;
+        q->data = A[--i];
         q=q->next;
     }
-    else
-    {
-        p->next = q->next;
-        free(q);
-        q = p->next;
-    }
-}
 }
 
-    int main()
+void ReverseList2(struct Node *p)
+{
+    struct Node * q = NULL;
+    struct Node *r = NULL;
+    while(p!=NULL)
     {
-    int count1;
-    int sum;
-    int A[]={1 ,2,2};
-    Create(A,3);
-    display(first);
-    printf("\n");
-    duplicate(first);
-    display(first);
-    printf("\n");
-    count1 = count(first);
-    printf("%d \n",count1);
-    sum = Sum(first);
-    printf("The sum is %d ",sum);
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
     }
+    first = q;
+}
+
+int main()
+{   int A[] = {1,2,3,4,5,6};
+    Create(A,6);
+    display(first);
+    // ReverseList(first);
+    // display(first);
+    ReverseList2(first);
+    display(first);
+}
