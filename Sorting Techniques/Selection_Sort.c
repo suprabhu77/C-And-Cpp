@@ -25,6 +25,6 @@ void SelectionSort(int A[],int N)
 
 int main()
 { 
-    int A[]={2,8,6,4,2};
+    int A[]={2,78,6,4,2};
     SelectionSort(A,5);
 }
