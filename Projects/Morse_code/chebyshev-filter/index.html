@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BWNLRQ85BM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BWNLRQ85BM');
+    </script>
+    <title>DSP - Step Wise Chebyshev Filter Designer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    <meta name="theme-color" content="#3F4E85">
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/images/favicon-192.png">
+    <meta name="Description" content="Author: Mohamed Farhan Fazal,
+    Online tool to design DSP Analog Filters. Digital Chebyshev Filter - IIT and BLT, Digital Chebyshev Filter - IIT and BLT">
+
+    <!-- Linking PWA Files -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <script src="/assets/js/pwa/index.js"></script>
+
+</head>
+
+<body class="is-preload">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <h1><a href="/">Home</a></h1>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <div class="inner">
+                <h2>Menu</h2>
+                <ul class="links">
+                    <li><a href="/">Home</a></li>
+                    <!-- <li><a href="/#filterOrder">Filter Order/Cutoff</a></li> -->
+                    <li><a href="/butterworth-filter/">Butterworth Filter</a></li>
+                    <li><a href="/chebyshev-filter/">Chebyshev Filter</a></li>
+                    <li><a href="https://github.com/fazalfarhan01/dsp-filters" class="button primary icon solid fa-github brands" target="_blank" rel="noopener" rel="noreferrer">View on GitHub</a></li>
+                </ul>
+                <a href="#" class="close">Close</a>
+            </div>
+        </nav>
+
+        <!-- Wrapper -->
+        <section id="wrapper">
+            <header>
+                <div class="inner">
+                    <h2>Chebyshev Filter Design</h2>
+                    <p>Step By Step Chebyshev Filter Designer</p>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="wrapper">
+                <div class="inner">
+
+                    <!-- To be Worked on -->
+                    <div class="content">
+                        <br><br>
+                        <!-- Digital to Analog Domain Converter -->
+                        <h2 class="major">Digital to Analog Domain Converter</h2>
+                        <form id="digitalToAnalogConverter" method="POST" target="hidden_iframe">
+                            <div class="row gtr-uniform">
+                                <div class="col-6 col-12-medium">
+                                    <label for="filterConvertionType">Digital Filter Conversion Method</label>
+                                    <select name="filterConvertionType" id="filterConvertionType" required>
+                                        <option value="IIT">IIT - Impulse Invariant Transform</option>
+                                        <option value="BLT">BLT - Bilinear Transform</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-12-medium">
+                                    <label for="time">Time</label>
+                                    <input type="text" name="time" id="time" value="1" required>
+                                </div>
+                                <div class="col-6 col-12-medium">
+                                    <label for="digitalOmegaP">Digital - ω<sub>p</sub></label>
+                                    <input type="text" name="digitalOmegaP" id="digitalOmegaP" placeholder="Digital Domain ωp" required>
+                                </div>
+                                <div class="col-6 col-12-medium">
+                                    <label for="digitalOmegaS">Digital - ω<sub>s</sub></label>
+                                    <input type="text" name="digitalOmegaS" id="digitalOmegaS" placeholder="Digital Domain ωs" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Form Buttons -->
+                            <div class="row">
+                                <div class="col-6 col-12-medium">
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Convert To Analog Domain" id="digital2AnalogSubmitButton"></li>
+                                        <li><input type="reset" value="Reset"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Div to show values of omegaP and omegaS -->
+                        <div class="row" style="text-align: center;" id="analogDomain" style="display: none;">
+                            <div class="col-6 col-12-small" id="analogOmegaP"></div>
+                            <div class="col-6 col-12-small" id="analogOmegaS"></div>
+                        </div>
+
+
+                        <!-- Filter Input Data Form -->
+                        <br><br>
+                        <h2 class="major">Chebyshev Filter Designer</h2>
+
+                        <form id="filterDesignerForm" method="POST" target="hidden_iframe">
+                            <div class="row gtr-uniform">
+                                <div class="col-12 col-12-xsmall">
+                                    <select name="gainType" id="gainType" required>
+                                                <option value="">Select Gain Type</option>
+                                                <option value="direct">Normal</option>
+                                                <option value="decibles">Decibles</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-12-small">
+                                    <input type="text" name="minPassBandGain" id="minPassBandGain" placeholder="Minimum Pass Band Gain" required>
+                                </div>
+                                <div class="col-6 col-12-small">
+                                    <input type="text" name="maxStopBandGain" id="maxStopBandGain" placeholder="Maximum Stop Band Gain" required>
+                                </div>
+                                <!-- <div class="col-12">
+                                    <select name="frequencyType" id="frequencyType" required>
+                                                <option value="">Select Frequency Type</option>
+                                                <option value="hz">Hz</option>
+                                                <option value="rads">Rad/s</option>
+                                    </select>
+                                </div> -->
+                                <div class="col-6 col-12-small">
+                                    <input type="text" name="passBandFrequency" id="passBandFrequency" placeholder="Enter Pass Band Frequency - Ωp" required>
+                                </div>
+                                <div class="col-6 col-12-small">
+                                    <input type="text" name="stopBandFrequency" id="stopBandFrequency" placeholder="Enter Stop Band Frequency - Ωs" required>
+                                </div>
+                                <!-- Filter Type -->
+                                <div class="col-12">
+                                    <select name="filterType" id="filterType" required>
+                                                <option value="">Select Filter Type</option>
+                                                <option value="lp">Low Pass</option>
+                                                <option value="hp">High Pass</option>
+                                                <!-- <option value="bp">Band Pass</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-4 col-12-small">
+                                    <ul class="actions">
+                                        <!-- Complete Design Calculator -->
+                                        <!-- <li><a onclick="startCalculations()" class="button icon solid fa-search scrolly">Design Filter</a></li> -->
+                                        <li><input type="submit" value="Design Filter" onclick="designchebyshev()"></li>
+
+                                        <!-- Reset Button -->
+                                        <li><input type="reset" value="Reset" onclick="clearResults()"></li>
+                                        <li><input type="button" value="Demo" onclick="debug()"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Results -->
+                        <hr>
+                        <div id="results" style="display: none;">
+                            <!-- Given -->
+                            <div id="given">
+                                <div class="row">
+                                    <h1>Given:</h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-12-medium">
+                                        <div id="passBandParameters"></div>
+                                    </div>
+                                    <div class="col-6 col-12-medium">
+                                        <div id="stopBandParameters"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 1 -->
+                            <div id="step1">
+                                <div class="row">
+                                    <h1>Step 1: Obtaining Normallised Specifications</h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-12-medium" id="normallisedOmegaP"></div>
+                                    <div class="col-6 col-12-medium" id="normallisedOmegaS"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div id="step2">
+                                <div class="row" style="text-align: center;">
+                                    <h1>Step 2: Determining ε - Ripple Factor</h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-12-small">
+                                        <p>\(\varepsilon = \sqrt {10^{0.1 \times A_{p}}-1}\)</p>
+                                    </div>
+                                    <div class="col-6 col-12-small" id="epsilonWithFormula"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div id="step3">
+                                <div class="row">
+                                    <h1>Step 3: Determine Order N</h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" style="text-align: center;">
+                                        <p>
+                                            \( \mid H(\Omega) \mid _{db} = -20 log_{10}(\varepsilon)-6(N-1)-20log_{10}(\Omega_{s}^{'}) \)
+                                        </p>
+                                    </div>
+                                    <div class="col-6 col-12-medium" style="text-align: center;">
+                                        <p>
+                                            \(N = \frac {A_{s} - 20 log_{10}(\varepsilon)+6} {6+20log_{10}(\Omega_{s}^{'})} \)
+                                        </p>
+                                    </div>
+                                    <div class="col-6 col-12-medium" id="orderFormulaWithValues" style="text-align: center;"></div>
+                                    <div class="col-12" id="finalOrder" style="text-align: center;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div id="step4">
+                                <div class="row">
+                                    <h1>Step 4: Find Roots and H<sub>1</sub>(S)</h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" style="text-align: center;" id="rootsBasedOnOrder"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" id="sigmaKFormula" style="text-align: center;"></div>
+                                    <div class="col-12" id="omegaKFormula" style="text-align: center;"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-12-small" id="sigmas" style="text-align: center;"></div>
+                                    <div class="col-6 col-12-small" id="omegas" style="text-align: center;"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" id="finalH1s" style="text-align: center;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step 5 -->
+                            <div id="step5">
+                                <div class="row">
+                                    <h1>Step 5: Finding <i>K</i></h1>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" id="kFormula" style="text-align: center;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step 6 -->
+                            <div id="step6">
+                                <div class="row">
+                                    <h1>Step 6: Frequency Transformations</h1>
+                                </div>
+                                <div class="row" style="text-align: center;">
+                                    <div class="col-12" id="deNormallised"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+            <div class="inner">
+                <h2 class="major">Get in touch</h2>
+                <form id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbzjay3jgxVXf3GGPXFDLnuk6u97aI-yW11ImEJ4JA/exec" target="hidden_iframe">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" />
+                        </div>
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" />
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li>
+                            <input type="submit" value="Send Message">
+                        </li>
+                    </ul>
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                </form>
+                <ul class="contact">
+                    <li class="icon solid fa-home">
+                        Rajiv Nagar<br /> Mysore, Karnataka<br /> India.
+                    </li>
+                    <li class="icon solid fa-phone"><a href="tel:+919731265150" target="_blank">+91 9731 265 150</a>
+                    </li>
+                    <li class="icon solid fa-envelope"><a href="mailto:fazal.farhan@gmail.com" target="_blank" rel="noopener" rel="noreferrer">fazal.farhan@gmail.com</a></li>
+                    <li class="icon brands fa-twitter"><a href="//twitter.com/fazalfarhan04" target="_blank" rel="noopener" rel="noreferrer">twitter.com/fazalfarhan04</a></li>
+                    <li class="icon brands fa-facebook-f"><a href="//facebook.com/mohamedfarhanf1" target="_blank" rel="noopener" rel="noreferrer">facebook.com/mohamedfarhanf1</a></li>
+                    <li class="icon brands fa-instagram"><a href="//instagram.com/fazal.farhan" target="_blank" rel="noopener" rel="noreferrer">instagram.com/fazal.farhan</a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; <a href="//fazals.ddns.net" target="_blank" rel="noopener" rel="noreferrer">DeepFocus</a>. All rights reserved.</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.scrollex.min.js"></script>
+    <script src="/assets/js/browser.min.js"></script>
+    <script src="/assets/js/breakpoints.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+    <!-- Contact Form Backed -->
+    <script src="/assets/js/logic/contactForm.js" type="text/javascript"></script>
+
+    <!-- Logical Scripts -->
+    <script src="/assets/js/logic/chebyshev-filter/main.js"></script>
+
+    <!-- MathJax Scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- MathJax Options -->
+    <script src="/assets/js/logic/butterworth-filter/mathjaxOptions.js"></script>
+
+    <!-- Math.js -->
+    <script src="https://unpkg.com/mathjs@8.0.1/lib/browser/math.js"></script>
+</body>
+
+</html>
