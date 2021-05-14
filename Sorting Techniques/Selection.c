@@ -6,6 +6,7 @@ int A[] = {1,2,9,4,5,6};
 int n = 6;
 bubblesort(A,n);
 }
+
 void bubblesort(int A[],int n)
 {
     int i,j,k;

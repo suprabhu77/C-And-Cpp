@@ -17,10 +17,12 @@ int partition(int A[], int l, int h)
         {
             i++;
         } while (A[i] <= pivot);
+            printf("%d \n",i);
         do
-        {
+        {   
             j--;
         } while (A[j] > pivot);
+            printf("%d \n",j);
 
         if (i < j)
             swap(&A[i], &A[j]);
@@ -43,11 +45,11 @@ void QuickSort(int A[], int low, int high)
 
 int main()
 {
-    int A[] = {1, 2, 4, 5, 72, 5, 9,65535};
-    int high = 8;
+    int A[] = {6,1,3,4,2,5,65535};
+    int high = 6;
     int low = 0;
     QuickSort(A, low, high);
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 5; i++)
     {
         printf("%d ", A[i]);
     }
